@@ -1,0 +1,26 @@
+@import 'bulma/css/bulma.css';
+
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+    .section {
+    flex: 1;
+  }
+/* for testing purposes */
+/* .modal {
+    display: block;
+  }   */
+
+  .image.is-128x128 {
+    width: 200px;
+    height: 200px;
+  }
