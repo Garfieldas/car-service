@@ -6,17 +6,16 @@ class Crew {
   driver: string;
   coDriver: string;
   car : string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string
 
   constructor(
-    id: string,
     number: number,
     driver: string,
     coDriver: string,
     car : string,
-    startTime: Date,
-    endTime: Date
+    startTime: string,
+    endTime: string
   ) {
     this.id = uuidv4();
     this.number = number;
@@ -27,3 +26,5 @@ class Crew {
     this.endTime = endTime;
   }
 }
+
+export default Crew;
