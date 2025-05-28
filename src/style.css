@@ -20,6 +20,10 @@ body {
   flex: 1;
 }
 
+img {
+    box-shadow: 2px 20px 10px rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+}
 .image.is-128x128 {
   width: 200px;
   height: 200px;
