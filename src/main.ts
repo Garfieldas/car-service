@@ -1,4 +1,5 @@
 import { closeModal, showModal } from "./components/modal";
+import renderCard from "./components/renderCard";
 
 const addNewBtn = document.querySelector('#add-new-btn');
 const closeModalBtn = document.querySelector('#close-modal-btn');
@@ -12,6 +13,9 @@ const carNumber = document.querySelector('#car-number');
 const serviceStart = document.querySelector('service-start');
 const serviceEnd = document.querySelector('service-end');
 
+window.addEventListener('load', () => {
+    renderCard();
+})
 
 addNewBtn?.addEventListener('click', () => {
     showModal();
