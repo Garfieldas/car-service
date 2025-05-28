@@ -7,164 +7,227 @@
     <link rel="stylesheet" href="src/style.css">
     <link rel="icon" href="/icon.png">
     <script type="module" src="src/main.ts"></script>
-</head>
-<body>
- <div class="page-wrapper">
-      <section class="section">
-        <div class="container">
-          <!-- Header -->
-        <div class="has-text-centered">
-          <figure class="image is-128x128 is-inline-block">
-            <img src="/icon.png" alt="Logo" />
-          </figure>
+  </head>
+  <body>
+    <!-- Full Width Card Layout -->
+    <div class="full-width-card">
+      <div class="has-text-centered mb-5">
+        <figure class="image is-128x128 is-inline-block">
+          <img src="/icon.png" alt="Logo" />
+        </figure>
+        <h1 class="title has-text-white is-size-2 mt-3">Serviso Zona 🏁</h1>
+      </div>
+
+      <!-- Top Bar -->
+      <div class="level mb-4">
+        <div class="level-left">
+          <button class="button is-primary" id="add-new-btn">
+            <span class="icon"><i class="fas fa-plus"></i></span>
+            <span>Pridėti ekipažą</span>
+          </button>
         </div>
-          <!-- <h1 class="title has-text-centered has-text-white">Serviso Zona 🏁</h1> -->
-
-          <!-- Top Bar: Add Button + Search -->
-          <div class="level mb-4">
-            <div class="level-left">
-              <button class="button is-primary" id="add-new-btn">
-                <span class="icon"><i class="fas fa-plus"></i></span>
-                <span>Pridėti ekipažą</span>
-              </button>
+        <div class="level-right">
+          <div class="field has-addons">
+            <div class="control">
+              <input class="input" type="text" id="search-bar" placeholder="Ieškoti ekipažo">
             </div>
-            <div class="level-right">
-              <div class="field has-addons">
-                <div class="control">
-                  <input class="input" type="text" id="search-bar" placeholder="Ieškoti ekipažo">
-                </div>
-                <div class="control">
-                  <button class="button is-info" id="searchBarBtn">Ieškoti</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Notifications -->
-          <div class="container" id="notifications-container"></div>
-          <br />
-
-          <!-- Service Cards Container -->
-          <div id="service-list" class="columns is-multiline">
-            <!-- One Card Example -->
-            <div class="column is-fullwidth">
-              <div class="card p-5 has-background-dark has-text-white">
-  <!-- Header -->
-  <h1 class="title has-text-white has-text-centered is-size-3 mb-2">Ekipažo informacija</h1>
-
-  <!-- Team Info Table -->
-  <table class="table is-fullwidth has-background-grey-dark has-text-white mb-5">
-    <thead>
-      <tr>
-        <th>Ekipažas</th>
-        <th>Vairuotojas</th>
-        <th>Šturmanas</th>
-        <th>Automobilis</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>#25</td>
-        <td>Jonas Petrauskas</td>
-        <td>Mantas Juknevičius</td>
-        <td>Škoda Fabia R5</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Timer Section -->
-  <div class="has-text-centered mb-5">
-    <p class="is-size-4 has-text-grey-light">Laikas iki serviso pabaigos:</p>
-    <p class="is-size-1 has-text-danger has-text-weight-bold" id="timer-25">00:27:45</p>
-  </div>
-
-  <!-- Bottom Details -->
-  <div class="columns is-mobile is-multiline is-variable is-4">
-    <div class="column is-full-mobile is-half-tablet">
-      <p class="is-size-5">Serviso zona <strong>A</strong></p>
-      <p class="is-size-6">Serviso pradžia: <strong>13:00</strong></p>
-    </div>
-    <div class="column is-full-mobile is-half-tablet has-text-right">
-      <p class="is-size-6">2025-05-27</p>
-      <p class="is-size-6">Serviso pabaiga: <strong>13:45</strong></p>
-    </div>
-  </div>
-              </div>
+            <div class="control">
+              <button class="button is-info" id="searchBarBtn">Ieškoti</button>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Modal -->
-<div class="modal" id="service-modal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Pridėti Ekipažą</p>
-      <button class="delete" aria-label="close" id="close-modal-btn"></button>
-    </header>
-    <section class="modal-card-body">
-      <div class="field">
-        <label class="label">Ekipažo numeris</label>
-        <div class="control">
-          <input class="input" type="text" id="crew-number" placeholder="Pvz.: 25">
-        </div>
       </div>
 
-      <div class="field">
-        <label class="label">Vairuotojas</label>
-        <div class="control">
-          <input class="input" type="text" id="driver" placeholder="Pvz.: Jonas Petrauskas">
-        </div>
-      </div>
+      <!-- Notifications -->
+      <div id="notifications-container" class="mb-5"></div>
 
-      <div class="field">
-        <label class="label">Šturmanas</label>
-        <div class="control">
-          <input class="input" type="text" id="co-driver" placeholder="Pvz.: Mantas Juknevičius">
-        </div>
-      </div>
+      <!-- Service Card -->
+      <div class="card p-5 has-background-dark has-text-white">
+        <h1 class="title has-text-white has-text-centered is-size-3 mb-4">Ekipažo informacija</h1>
 
-      <div class="field">
-        <label class="label">Automobilio numeris</label>
-        <div class="control">
-          <input class="input" type="text" id="car-number" placeholder="Pvz.: ŠKODA-001">
+        <div class="table-container">
+          <table class="table is-fullwidth has-background-grey-dark has-text-white mb-5 is-bordered is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th class="is-size-4">Ekipažas</th>
+                <th class="is-size-4">Vairuotojas</th>
+                <th class="is-size-4">Šturmanas</th>
+                <th class="is-size-4">Automobilis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="is-size-4">#25</td>
+                <td class="is-size-4">Jonas Petrauskas</td>
+                <td class="is-size-4">Mantas Juknevičius</td>
+                <td class="is-size-4">Škoda Fabia R5</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
 
-      <div class="field">
-        <label class="label">Serviso pradžia</label>
-        <div class="control">
-          <input class="input" type="time" id="service-start" placeholder="13:00">
+        <div class="has-text-centered mb-5">
+          <p class="is-size-4 has-text-grey-light">Laikas iki serviso pabaigos:</p>
+          <p class="is-size-1 has-text-danger has-text-weight-bold" id="timer-25">00:27:45</p>
         </div>
-      </div>
 
-      <div class="field">
-        <label class="label">Serviso pabaiga</label>
-        <div class="control">
-          <input class="input" type="time" id="service-end" placeholder="13:45">
+        <div class="columns is-mobile is-multiline is-variable is-4">
+          <div class="column is-full-mobile is-half-tablet">
+            <p class="is-size-4">Serviso zona <strong>A</strong></p>
+            <p class="is-size-5">Serviso pradžia: <strong>13:00</strong></p>
+          </div>
+          <div class="column is-full-mobile is-half-tablet has-text-right">
+            <p class="is-size-4">2025-05-27</p>
+            <p class="is-size-5">Serviso pabaiga: <strong>13:45</strong></p>
+          </div>
         </div>
       </div>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success" id="add-service-btn">Pridėti</button>
-      <button class="button" id="cancel-modal-btn">Atšaukti</button>
+            <div class="card p-5 has-background-dark has-text-white">
+        <h1 class="title has-text-white has-text-centered is-size-3 mb-4">Ekipažo informacija</h1>
+
+        <div class="table-container">
+          <table class="table is-fullwidth has-background-grey-dark has-text-white mb-5 is-bordered is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th class="is-size-4">Ekipažas</th>
+                <th class="is-size-4">Vairuotojas</th>
+                <th class="is-size-4">Šturmanas</th>
+                <th class="is-size-4">Automobilis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="is-size-4">#25</td>
+                <td class="is-size-4">Jonas Petrauskas</td>
+                <td class="is-size-4">Mantas Juknevičius</td>
+                <td class="is-size-4">Škoda Fabia R5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="has-text-centered mb-5">
+          <p class="is-size-4 has-text-grey-light">Laikas iki serviso pabaigos:</p>
+          <p class="is-size-1 has-text-danger has-text-weight-bold" id="timer-25">00:27:45</p>
+        </div>
+
+        <div class="columns is-mobile is-multiline is-variable is-4">
+          <div class="column is-full-mobile is-half-tablet">
+            <p class="is-size-4">Serviso zona <strong>A</strong></p>
+            <p class="is-size-5">Serviso pradžia: <strong>13:00</strong></p>
+          </div>
+          <div class="column is-full-mobile is-half-tablet has-text-right">
+            <p class="is-size-4">2025-05-27</p>
+            <p class="is-size-5">Serviso pabaiga: <strong>13:45</strong></p>
+          </div>
+        </div>
+      </div>
+            <div class="card p-5 has-background-dark has-text-white">
+        <h1 class="title has-text-white has-text-centered is-size-3 mb-4">Ekipažo informacija</h1>
+
+        <div class="table-container">
+          <table class="table is-fullwidth has-background-grey-dark has-text-white mb-5 is-bordered is-striped is-hoverable">
+            <thead>
+              <tr>
+                <th class="is-size-4">Ekipažas</th>
+                <th class="is-size-4">Vairuotojas</th>
+                <th class="is-size-4">Šturmanas</th>
+                <th class="is-size-4">Automobilis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="is-size-4">#25</td>
+                <td class="is-size-4">Jonas Petrauskas</td>
+                <td class="is-size-4">Mantas Juknevičius</td>
+                <td class="is-size-4">Škoda Fabia R5</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="has-text-centered mb-5">
+          <p class="is-size-4 has-text-grey-light">Laikas iki serviso pabaigos:</p>
+          <p class="is-size-1 has-text-danger has-text-weight-bold" id="timer-25">00:27:45</p>
+        </div>
+
+        <div class="columns is-mobile is-multiline is-variable is-4">
+          <div class="column is-full-mobile is-half-tablet">
+            <p class="is-size-4">Serviso zona <strong>A</strong></p>
+            <p class="is-size-5">Serviso pradžia: <strong>13:00</strong></p>
+          </div>
+          <div class="column is-full-mobile is-half-tablet has-text-right">
+            <p class="is-size-4">2025-05-27</p>
+            <p class="is-size-5">Serviso pabaiga: <strong>13:45</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="service-modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Pridėti Ekipažą</p>
+          <button class="delete" aria-label="close" id="close-modal-btn"></button>
+        </header>
+        <section class="modal-card-body">
+          <div class="field">
+            <label class="label">Ekipažo numeris</label>
+            <div class="control">
+              <input class="input" type="text" id="crew-number" placeholder="Pvz.: 25">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Vairuotojas</label>
+            <div class="control">
+              <input class="input" type="text" id="driver" placeholder="Pvz.: Jonas Petrauskas">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Šturmanas</label>
+            <div class="control">
+              <input class="input" type="text" id="co-driver" placeholder="Pvz.: Mantas Juknevičius">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Automobilio numeris</label>
+            <div class="control">
+              <input class="input" type="text" id="car-number" placeholder="Pvz.: ŠKODA-001">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Serviso pradžia</label>
+            <div class="control">
+              <input class="input" type="time" id="service-start" placeholder="13:00">
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Serviso pabaiga</label>
+            <div class="control">
+              <input class="input" type="time" id="service-end" placeholder="13:45">
+            </div>
+          </div>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" id="add-service-btn">Pridėti</button>
+          <button class="button" id="cancel-modal-btn">Atšaukti</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer has-background-black has-text-white">
+      <div class="content has-text-centered">
+        <p class="is-size-4">
+          <strong>&copy;</strong>
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+          <a href="https://github.com/Garfieldas/weather-app" class="has-text-primary">Garfieldas</a>
+        </p>
+      </div>
     </footer>
-  </div>
-</div>
-
-      <!-- Footer -->
-      <footer class="footer has-background-black has-text-white">
-        <div class="content has-text-centered">
-          <p class="is-size-4">
-            <strong>&copy;</strong>
-            <script>
-              document.write(new Date().getFullYear())
-            </script>
-            <a href="https://github.com/Garfieldas/weather-app" class="has-text-primary">Garfieldas</a>
-          </p>
-        </div>
-      </footer>
-    </div>
   </body>
 </html>
