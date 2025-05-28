@@ -19,10 +19,6 @@ body {
 .section {
   flex: 1;
 }
-/* for testing purposes */
-/* .modal {
-    display: block;
-  }   */
 
 .image.is-128x128 {
   width: 200px;
