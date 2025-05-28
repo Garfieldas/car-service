@@ -6,17 +6,8 @@ const addNewBtn = document.querySelector('#add-new-btn');
 const closeModalBtn = document.querySelector('#close-modal-btn');
 const modalBg = document.querySelector('.modal-background');
 
-const addServiceBtn = document.querySelector('#add-service-btn');
-// const crewNumber = document.querySelector('#crew-number');
-// const driver = document.querySelector('#driver');
-// const coDriver = document.querySelector('#co-driver');
-// const carNumber = document.querySelector('#car-number');
-// const serviceStart = document.querySelector('service-start');
-// const serviceEnd = document.querySelector('service-end');
-
-window.addEventListener('load', () => {
-    renderCard();
-})
+const addServiceBtn = document.querySelector<HTMLButtonElement>('#add-service-btn');
+const modalBody = document.querySelector('.modal-card-body');
 
 addNewBtn?.addEventListener('click', () => {
     showModal();
@@ -30,6 +21,16 @@ modalBg?.addEventListener('click', () => {
     closeModal();
 })
 
+modalBody?.addEventListener('keypress', (e) => {
+    if (e instanceof KeyboardEvent && e.key === 'Enter') {
+        addServiceBtn?.click();
+    }
+})
+
 addServiceBtn?.addEventListener('click', () => {
-    addCrew();
+    const crew = addCrew();
+    if (crew){
+        renderCard(crew);
+        closeModal();
+    }
 })

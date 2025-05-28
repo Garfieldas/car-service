@@ -1,4 +1,6 @@
-const renderCard = () => {
+import Crew from "../utils/Crew";
+
+const renderCard = (crew: Crew) => {
 
     const cardContainer = document.querySelector('#crew-card-wrapper');
 
@@ -37,12 +39,12 @@ const renderCard = () => {
 
     const tr2 = document.createElement('tr');
 
-    const fakeData = ['#25', 'Jonas Petrauskas', 'Mantas Bybinskas', 'Škoda octavia']; //Needs to be dynamic
+    const values = ['number', 'driver', 'coDriver', 'car'];
 
-    fakeData.forEach(data => {
+    values.forEach(value => {
         const td = document.createElement('td');
         td.className = 'is-size-4';
-        td.textContent = data;
+        td.textContent = String(crew[value as keyof typeof crew]);
         tr2.appendChild(td);
     })
     tbody.appendChild(tr2);
@@ -59,7 +61,7 @@ const renderCard = () => {
     const p2 = document.createElement('p');
     p2.className = 'is-size-1 has-text-danger has-text-weight-bold';
     p2.setAttribute('id', 'timer');
-    p2.textContent = '00:27:45'; //Needs to be dynamic
+    p2.textContent = timeLeft(crew.startTime, crew.endTime); //Needs to be dynamic
     timeDiv.appendChild(p2);
 
     const servicetDiv = document.createElement('div');
@@ -80,7 +82,7 @@ const renderCard = () => {
     p3.textContent = 'Serviso pradžia: ';
 
     const strong1 = document.createElement('strong');
-    strong1.textContent = '13:00'; //Needs to be dynamic
+    strong1.textContent = crew.startTime; //Needs to be dynamic
     p3.appendChild(strong1);
     startDiv.appendChild(p3);
 
@@ -98,11 +100,37 @@ const renderCard = () => {
     p5.textContent = 'Serviso pabaiga: ';
 
     const strong2 = document.createElement('strong');
-    strong2.textContent = '13:45'; //Needs to be dynamic
+    strong2.textContent = crew.endTime //Needs to be dynamic
     p5.appendChild(strong2);
     endDiv.appendChild(p5);
 
     cardContainer?.appendChild(card);
+
+}
+
+const timeLeft = (start: string, end: string) => {
+
+    const [startHour, startMinute] = start.split(":").map(Number);
+    const [endHour, endMinute] = end.split(":").map(Number);
+
+    const startMinutes = startHour * 60 + startMinute;
+    const endMinutes = endHour * 60 + endMinute;
+ 
+    let diff = endMinutes - startMinutes;
+
+    if (diff < 0) {
+        diff += 24 * 60;
+    }
+
+    let hour = Math.floor(diff / 60);
+    const minute = diff % 60;
+
+    const hourString = hour.toString().padStart(2, "0");
+    const minuteSring = minute.toString().padStart(2, "0");
+
+    const timeLeft = `${hourString}:${minuteSring}`;
+
+    return timeLeft;
 
 }
 

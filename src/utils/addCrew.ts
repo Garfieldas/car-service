@@ -35,6 +35,12 @@ const addCrew = () => {
     start,
     end
   );
+  crewNumber.value = '';
+  driver.value = '';
+  coDriver.value = '';
+  carNumber.value= '';
+  serviceStart.value = '';
+  serviceEnd.value = '';
   
   return crew;
 };
