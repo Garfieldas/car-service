@@ -1,5 +1,6 @@
 import { closeModal, showModal } from "./components/modal";
 import renderCard from "./components/renderCard";
+import { stopWatch } from "./features/stopWatch";
 import { addCrew } from "./utils/addCrew";
 
 const addNewBtn = document.querySelector('#add-new-btn');
@@ -33,4 +34,8 @@ addServiceBtn?.addEventListener('click', () => {
         renderCard(crew);
         closeModal();
     }
+})
+
+window.addEventListener('load', () => {
+    stopWatch();
 })
