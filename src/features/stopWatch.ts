@@ -11,21 +11,11 @@ const stopWatch = () => {
 
     const diff = end.getTime() - start.getTime();
 
-    const seconds = diff / 1000;
+    const timeLeft = countDown(diff);
 
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
+    const newTime = calculate(timeLeft);
 
-    const result = new Date();
-    result.setHours(hours);
-    result.setMinutes(minutes);
-    result.setSeconds(remainingSeconds);
-
-
-
-    console.log(`${hours}:${minutes}:${remainingSeconds}`);
-    console.log(result)
+    console.log(newTime)
 
 }
 
@@ -38,5 +28,28 @@ const setDate = (hour: number, minutes: number) => {
 
     return newTime;
 } 
+
+const calculate = (diff: number) => {
+    
+    const seconds = diff / 1000;
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const result = new Date();
+    result.setHours(hours);
+    result.setMinutes(minutes);
+    result.setSeconds(remainingSeconds);
+
+    return result;
+}
+
+const countDown = (timeLeft: number) => {
+    
+    const diff = timeLeft - 1000;
+
+    return diff;
+}
 
 export { stopWatch };
