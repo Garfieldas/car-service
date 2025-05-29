@@ -1,4 +1,5 @@
 import Crew from "./Crew";
+import { setDate, validateDate } from "../features/stopWatch";
 
 const addCrew = () => {
   const crewNumber = document.querySelector<HTMLInputElement>("#crew-number");
@@ -24,6 +25,19 @@ const addCrew = () => {
     !end
   ) {
     console.log("invalid");
+    return;
+  }
+
+  const [startH, startM] = start.split(":").map(Number);
+  const [endH, endM] = end.split(":").map(Number);
+
+  const startDate = setDate(startH, startM);
+  const endDate = setDate(endH, endM);
+
+  const checkDate = validateDate(startDate, endDate);
+
+  if (checkDate <= 0){
+    alert('Wrong start date');
     return;
   }
 
