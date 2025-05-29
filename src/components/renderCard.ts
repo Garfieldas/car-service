@@ -1,5 +1,5 @@
 import Crew from "../utils/Crew";
-import { stopWatch } from "../features/stopWatch";
+import { stopWatch, currentDate } from "../features/stopWatch";
 
 const renderCard = (crew: Crew) => {
 
@@ -94,7 +94,7 @@ const renderCard = (crew: Crew) => {
 
     const p4 = document.createElement('p');
     p4.className = 'is-size-4';
-    p4.textContent = '2025-05-27';
+    p4.textContent = currentDate();
     endDiv.appendChild(p4);
 
     const p5 = document.createElement('p');

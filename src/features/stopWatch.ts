@@ -50,4 +50,24 @@ const calculate = (ms: number): string => {
 
 const pad = (num: number): string => (num < 10 ? `0${num}` : `${num}`);
 
-export { stopWatch };
+const validateDate = (start: Date, end: Date) => {
+
+    const startMinutes = (start.getHours() * 60) + start.getMinutes();
+    const endMinutes = (end.getHours() * 60) + end.getMinutes();
+
+    const result = endMinutes - startMinutes;
+
+    return result;
+}
+
+const currentDate = () => {
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    return `${year}-${pad(month)}-${pad(day)}`;
+}
+
+export { stopWatch, validateDate, setDate, currentDate };

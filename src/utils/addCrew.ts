@@ -1,4 +1,7 @@
 import Crew from "./Crew";
+import { setDate, validateDate } from "../features/stopWatch";
+import { closeModal } from "../components/modal";
+import showNotification from "../components/showNotification";
 
 const addCrew = () => {
   const crewNumber = document.querySelector<HTMLInputElement>("#crew-number");
@@ -23,7 +26,24 @@ const addCrew = () => {
     !start ||
     !end
   ) {
-    console.log("invalid");
+    showNotification('Kai kurie laukai nebuvo užpildyti!', 'is-danger');
+    closeModal();
+    return;
+  }
+
+  const [startH, startM] = start.split(":").map(Number);
+  const [endH, endM] = end.split(":").map(Number);
+
+  const startDate = setDate(startH, startM);
+  const endDate = setDate(endH, endM);
+
+  const checkDate = validateDate(startDate, endDate);
+
+  if (checkDate <= 0){
+    showNotification('Neteisingas starto laikas', 'is-danger');
+    closeModal();
+    serviceStart.value = '';
+    serviceEnd.value = '';
     return;
   }
 
