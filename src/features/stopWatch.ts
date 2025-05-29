@@ -60,4 +60,14 @@ const validateDate = (start: Date, end: Date) => {
     return result;
 }
 
-export { stopWatch, validateDate, setDate };
+const currentDate = () => {
+
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    return `${year}-${pad(month)}-${pad(day)}`;
+}
+
+export { stopWatch, validateDate, setDate, currentDate };

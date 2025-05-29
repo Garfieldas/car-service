@@ -1,5 +1,6 @@
 import { closeModal, showModal } from "./components/modal";
 import renderCard from "./components/renderCard";
+import showNotification from "./components/showNotification";
 import { addCrew } from "./utils/addCrew";
 
 const addNewBtn = document.querySelector('#add-new-btn');
@@ -32,5 +33,6 @@ addServiceBtn?.addEventListener('click', () => {
     if (crew){
         renderCard(crew);
         closeModal();
+        showNotification('Įrašas sėkmingai pridėtas', 'is-success');
     }
 })
