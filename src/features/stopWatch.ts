@@ -1,7 +1,4 @@
-const stopWatch = () => {
-
-    const startTime = '12:00';
-    const endTime = '12:30';
+const stopWatch = (startTime: string, endTime: string, displayElement: HTMLElement) => {
 
     const [startH, startM] = startTime.split(":").map(Number);
     const [endH, endM] = endTime.split(":").map(Number);
@@ -11,12 +8,25 @@ const stopWatch = () => {
 
     const diff = end.getTime() - start.getTime();
 
-    const timeLeft = countDown(diff);
+    const countDown = () => {
+        let timeLeft = diff;
 
-    const newTime = calculate(timeLeft);
+        const interval = setInterval(() => {
+            if (timeLeft <= 0){
+                clearInterval(interval);
+                displayElement.textContent = '00:00';
+                return;
+            }
+            const formatted = calculate(timeLeft);
+            displayElement.textContent = formatted;
+            timeLeft -= 1000;
+        }, 1000);
+    };
 
-    console.log(newTime)
-
+    return {
+        startCountdown: countDown,
+    };
+;
 }
 
 const setDate = (hour: number, minutes: number) => {
@@ -29,27 +39,15 @@ const setDate = (hour: number, minutes: number) => {
     return newTime;
 } 
 
-const calculate = (diff: number) => {
-    
-    const seconds = diff / 1000;
+const calculate = (ms: number): string => {
+    const totalSeconds = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
 
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+};
 
-    const result = new Date();
-    result.setHours(hours);
-    result.setMinutes(minutes);
-    result.setSeconds(remainingSeconds);
-
-    return result;
-}
-
-const countDown = (timeLeft: number) => {
-    
-    const diff = timeLeft - 1000;
-
-    return diff;
-}
+const pad = (num: number): string => (num < 10 ? `0${num}` : `${num}`);
 
 export { stopWatch };
