@@ -1,5 +1,7 @@
 import Crew from "../utils/Crew";
 import { stopWatch, currentDate } from "../features/stopWatch";
+import removeCrew from "../utils/removeCrew";
+import showNotification from "./showNotification";
 
 const renderCard = (crew: Crew) => {
 
@@ -7,6 +9,7 @@ const renderCard = (crew: Crew) => {
 
     const card = document.createElement('div');
     card.className = 'card p-5 has-background-dark has-text-white';
+    card.setAttribute('id', crew.id);
 
     const title = document.createElement('h1');
     title.className = 'title has-text-white has-text-centered is-size-3 mb-4';
@@ -105,6 +108,16 @@ const renderCard = (crew: Crew) => {
     strong2.textContent = crew.endTime
     p5.appendChild(strong2);
     endDiv.appendChild(p5);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'button is-danger';
+    deleteBtn.textContent = 'Ištrinti';
+    servicetDiv.appendChild(deleteBtn);
+
+    deleteBtn.addEventListener('click', () => {
+        removeCrew(crew.id);
+        showNotification('Įrašas pašalintas', 'is-warning');
+    })
 
     cardContainer?.appendChild(card);
 
