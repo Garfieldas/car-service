@@ -11,23 +11,30 @@ const modalBg = document.querySelector('.modal-background');
 const addServiceBtn = document.querySelector<HTMLButtonElement>('#add-service-btn');
 const modalBody = document.querySelector('.modal-card-body');
 
+window.addEventListener('load', () => {
+    const storedList = getFromStorage();
+    storedList.forEach((crew => {
+        renderCard(crew);
+    }))
+})
+
 addNewBtn?.addEventListener('click', () => {
     showModal();
-})
+});
 
 closeModalBtn?.addEventListener('click', () => {
     closeModal();
-})
+});
 
 modalBg?.addEventListener('click', () => {
     closeModal();
-})
+});
 
 modalBody?.addEventListener('keypress', (e) => {
     if (e instanceof KeyboardEvent && e.key === 'Enter') {
         addServiceBtn?.click();
     }
-})
+});
 
 addServiceBtn?.addEventListener('click', () => {
     const crew = addCrew();
@@ -48,11 +55,4 @@ addServiceBtn?.addEventListener('click', () => {
         showNotification('Įrašas sėkmingai pridėtas', 'is-success');
         saveToStorage(crew);
     }
-})
-
-window.addEventListener('load', () => {
-    const crewList = getFromStorage();
-    crewList.forEach(crew => {
-        renderCard(crew);
-    });
-})
+});
