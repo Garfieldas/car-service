@@ -2,6 +2,7 @@ import { closeModal, showModal } from "./components/modal";
 import renderCard from "./components/renderCard";
 import showNotification from "./components/showNotification";
 import { addCrew } from "./utils/addCrew";
+import { getFromStorage, saveToStorage } from "./utils/storage";
 
 const addNewBtn = document.querySelector('#add-new-btn');
 const closeModalBtn = document.querySelector('#close-modal-btn');
@@ -30,9 +31,28 @@ modalBody?.addEventListener('keypress', (e) => {
 
 addServiceBtn?.addEventListener('click', () => {
     const crew = addCrew();
+    const storedList = getFromStorage();
+    const exists = storedList.some(
+        (item) =>
+        (item.number === crew?.number || 
+            item.driver && item?.coDriver === crew?.driver && crew.coDriver)
+    );
+    if (exists){
+        closeModal();
+        showNotification('Šis ekipažas jau egzistuoja', 'is-danger');
+        return;
+    }
     if (crew){
         renderCard(crew);
         closeModal();
         showNotification('Įrašas sėkmingai pridėtas', 'is-success');
+        saveToStorage(crew);
     }
+})
+
+window.addEventListener('load', () => {
+    const crewList = getFromStorage();
+    crewList.forEach(crew => {
+        renderCard(crew);
+    });
 })
