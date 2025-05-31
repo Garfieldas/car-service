@@ -31,7 +31,7 @@ const renderCard = (crew: Crew) => {
 
     rows.forEach(row => {
         const th = document.createElement('th');
-        th.className = 'is-size-4';
+        th.className = 'is-size-4 has-text-white';
         th.textContent = row;
         tr.appendChild(th);
         
@@ -47,7 +47,7 @@ const renderCard = (crew: Crew) => {
 
     values.forEach(value => {
         const td = document.createElement('td');
-        td.className = 'is-size-4';
+        td.className = 'is-size-4 has-text-white';
         const fieldValue = crew[value as keyof typeof crew];
         td.textContent = value === 'number' ? `#${fieldValue}` : String(fieldValue);
         tr2.appendChild(td);
