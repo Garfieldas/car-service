@@ -70,4 +70,17 @@ const currentDate = () => {
     return `${year}-${pad(month)}-${pad(day)}`;
 }
 
-export { stopWatch, validateDate, setDate, currentDate };
+const timeLeftDisplay = (startTime: string, endTime: string) => {
+
+    const [startH, startM] = startTime.split(":").map(Number);
+    const [endH, endM] = endTime.split(":").map(Number);
+    const start = setDate(startH, startM);
+    const end = setDate(endH, endM);
+    const diff = end.getTime() - start.getTime();
+    
+    const display = calculate(diff);
+
+    return display
+}
+
+export { stopWatch, validateDate, setDate, currentDate, timeLeftDisplay };

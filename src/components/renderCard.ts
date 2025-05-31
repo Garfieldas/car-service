@@ -1,5 +1,5 @@
 import Crew from "../utils/Crew";
-import { stopWatch, currentDate } from "../features/stopWatch";
+import { stopWatch, currentDate, timeLeftDisplay } from "../features/stopWatch";
 import removeCrew from "../utils/removeCrew";
 import showNotification from "./showNotification";
 
@@ -66,9 +66,20 @@ const renderCard = (crew: Crew) => {
     const p2 = document.createElement('p');
     p2.className = 'is-size-1 has-text-danger has-text-weight-bold';
     p2.setAttribute('id', 'timer');
-    const stopWatchCall = stopWatch(crew.startTime, crew.endTime, p2);
-    stopWatchCall.startCountdown();
+    p2.textContent = timeLeftDisplay(crew.startTime, crew.endTime);
     timeDiv.appendChild(p2);
+
+    //Start button
+    const startBtn = document.createElement('button');
+    startBtn.className = 'button is-primary is-size-3';
+    startBtn.textContent = 'Start';
+    timeDiv.appendChild(startBtn);
+    startBtn.addEventListener('click', () => {
+        const stopWatchCall = stopWatch(crew.startTime, crew.endTime, p2);
+        stopWatchCall.startCountdown();
+        startBtn.remove();
+        showNotification('Laiko skaičiavimas prasidėjo', 'is-success');
+    })
 
     const servicetDiv = document.createElement('div');
     servicetDiv.className = 'columns is-mobile is-multiline is-variable is-4';

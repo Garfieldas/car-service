@@ -25,7 +25,7 @@ npm run serve
 ## 📸 Screenshots
 
 ### ⏱️ Main Page
-Track ongoing service time using a stopwatch component or live time difference.
+Main Page on load
 
 ![Main Page](https://i.ibb.co/BV7CJf8p/Screenshot-2025-05-30-at-23-52-26.png
 )
