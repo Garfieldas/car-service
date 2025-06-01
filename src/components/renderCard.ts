@@ -68,7 +68,8 @@ const renderCard = (crew: Crew) => {
     p2.setAttribute('id', 'timer');
     timeDiv.appendChild(p2);
     const stopWatch = new StopWatch(crew.startTime, crew.endTime, p2);
-    stopWatch.start();
+    p2.textContent = stopWatch.getTimeLeft();
+    stopWatch.watchStartTime();
 
     //Stop button
     const stopBtn = document.createElement('button');
