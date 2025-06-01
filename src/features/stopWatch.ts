@@ -1,3 +1,17 @@
+import showNotification from "../components/showNotification";
+
+let state = 'is-on';
+const getSate = () => state;
+export const setState = (newState : 'is-on' | 'is-off') => {
+    state = newState;
+}
+
+let diff : number;
+export const getDiff = () => diff;
+const setDiff = (newDiff: number) => {
+    diff = newDiff;
+}
+
 const stringToDate = (startTime: string, endTime: string) => {
 
     const [startH, startM] = startTime.split(":").map(Number);
@@ -7,6 +21,7 @@ const stringToDate = (startTime: string, endTime: string) => {
     const end = setDate(endH, endM);
 
     const diff = end.getTime() - start.getTime();
+    setDiff(diff);
 
     return diff;
 }
@@ -53,18 +68,20 @@ const currentDate = () => {
 }
 
 const countDown = (diff: number, displayElement: HTMLElement) => {
-        
-    let timeLeft = diff;
 
         const interval = setInterval(() => {
-            if (timeLeft <= 0){
+            let action = getSate();
+            if (action === 'is-off'){
                 clearInterval(interval);
-                displayElement.textContent = '00:00';
-                return;
+                const formatted = calculate(diff);
+                displayElement.textContent = formatted;
+                showNotification('laikas sustabdytas', 'is-warning');
+                setDiff(diff);
             }
-            const formatted = calculate(timeLeft);
+            const formatted = calculate(diff);
             displayElement.textContent = formatted;
-            timeLeft -= 1000;
+            diff -= 1000;
+            setDiff(diff);
         }, 1000);
     };
 
