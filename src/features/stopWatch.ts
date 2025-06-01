@@ -1,4 +1,4 @@
-const stopWatch = (startTime: string, endTime: string, displayElement: HTMLElement) => {
+const stringToDate = (startTime: string, endTime: string) => {
 
     const [startH, startM] = startTime.split(":").map(Number);
     const [endH, endM] = endTime.split(":").map(Number);
@@ -8,25 +8,7 @@ const stopWatch = (startTime: string, endTime: string, displayElement: HTMLEleme
 
     const diff = end.getTime() - start.getTime();
 
-    const countDown = () => {
-        let timeLeft = diff;
-
-        const interval = setInterval(() => {
-            if (timeLeft <= 0){
-                clearInterval(interval);
-                displayElement.textContent = '00:00';
-                return;
-            }
-            const formatted = calculate(timeLeft);
-            displayElement.textContent = formatted;
-            timeLeft -= 1000;
-        }, 1000);
-    };
-
-    return {
-        startCountdown: countDown,
-    };
-;
+    return diff;
 }
 
 const setDate = (hour: number, minutes: number) => {
@@ -70,17 +52,29 @@ const currentDate = () => {
     return `${year}-${pad(month)}-${pad(day)}`;
 }
 
+const countDown = (diff: number, displayElement: HTMLElement) => {
+        
+    let timeLeft = diff;
+
+        const interval = setInterval(() => {
+            if (timeLeft <= 0){
+                clearInterval(interval);
+                displayElement.textContent = '00:00';
+                return;
+            }
+            const formatted = calculate(timeLeft);
+            displayElement.textContent = formatted;
+            timeLeft -= 1000;
+        }, 1000);
+    };
+
 const timeLeftDisplay = (startTime: string, endTime: string) => {
 
-    const [startH, startM] = startTime.split(":").map(Number);
-    const [endH, endM] = endTime.split(":").map(Number);
-    const start = setDate(startH, startM);
-    const end = setDate(endH, endM);
-    const diff = end.getTime() - start.getTime();
+    const diff = stringToDate(startTime, endTime);
     
     const display = calculate(diff);
 
-    return display
+    return display;
 }
 
-export { stopWatch, validateDate, setDate, currentDate, timeLeftDisplay };
+export { stringToDate, validateDate, setDate, currentDate, timeLeftDisplay, countDown };

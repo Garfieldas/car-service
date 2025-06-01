@@ -1,5 +1,5 @@
 import Crew from "../utils/Crew";
-import { stopWatch, currentDate, timeLeftDisplay } from "../features/stopWatch";
+import { stringToDate, currentDate, timeLeftDisplay, countDown } from "../features/stopWatch";
 import removeCrew from "../utils/removeCrew";
 import showNotification from "./showNotification";
 
@@ -75,8 +75,8 @@ const renderCard = (crew: Crew) => {
     startBtn.textContent = 'Start';
     timeDiv.appendChild(startBtn);
     startBtn.addEventListener('click', () => {
-        const stopWatchCall = stopWatch(crew.startTime, crew.endTime, p2);
-        stopWatchCall.startCountdown();
+        const stopWatchCall = stringToDate(crew.startTime, crew.endTime);
+        countDown(stopWatchCall, p2);
         startBtn.remove();
         showNotification('Laiko skaičiavimas prasidėjo', 'is-success');
     })
