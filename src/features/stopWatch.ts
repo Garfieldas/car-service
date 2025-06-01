@@ -37,12 +37,17 @@ const setDate = (hour: number, minutes: number) => {
 } 
 
 const calculate = (ms: number): string => {
-    const totalSeconds = Math.floor(ms / 1000);
+
+    const isNegative = ms < 0;
+    const absMs = Math.abs(ms);
+
+    const totalSeconds = Math.floor(absMs / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    const formatted = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    return isNegative ? `-${formatted}` : formatted;
 };
 
 const pad = (num: number): string => (num < 10 ? `0${num}` : `${num}`);
@@ -69,14 +74,21 @@ const currentDate = () => {
 
 const countDown = (diff: number, displayElement: HTMLElement) => {
 
+    const  halfTime = diff / 2;
+    const  negativeTime = halfTime / 2;
+
         const interval = setInterval(() => {
             let action = getSate();
             if (action === 'is-off'){
                 clearInterval(interval);
-                const formatted = calculate(diff);
-                displayElement.textContent = formatted;
                 showNotification('laikas sustabdytas', 'is-warning');
                 setDiff(diff);
+            }
+            if (diff === halfTime){
+                displayElement.className = 'is-size-1 has-text-warning has-text-weight-bold';
+            }
+            else if (diff === negativeTime){
+                displayElement.className = 'is-size-1 has-text-danger has-text-weight-bold';
             }
             const formatted = calculate(diff);
             displayElement.textContent = formatted;
@@ -84,7 +96,7 @@ const countDown = (diff: number, displayElement: HTMLElement) => {
             setDiff(diff);
         }, 1000);
     };
-
+   
 const timeLeftDisplay = (startTime: string, endTime: string) => {
 
     const diff = stringToDate(startTime, endTime);

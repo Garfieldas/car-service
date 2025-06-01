@@ -65,7 +65,7 @@ const renderCard = (crew: Crew) => {
     timeDiv.appendChild(p1);
 
     const p2 = document.createElement('p');
-    p2.className = 'is-size-1 has-text-danger has-text-weight-bold';
+    p2.className = 'is-size-1 has-text-success has-text-weight-bold';
     p2.setAttribute('id', 'timer');
     p2.textContent = timeLeftDisplay(crew.startTime, crew.endTime);
     timeDiv.appendChild(p2);
