@@ -1,4 +1,18 @@
-const stopWatch = (startTime: string, endTime: string, displayElement: HTMLElement) => {
+import showNotification from "../components/showNotification";
+
+let state = 'is-on';
+const getSate = () => state;
+export const setState = (newState : 'is-on' | 'is-off') => {
+    state = newState;
+}
+
+let diff : number;
+export const getDiff = () => diff;
+const setDiff = (newDiff: number) => {
+    diff = newDiff;
+}
+
+const stringToDate = (startTime: string, endTime: string) => {
 
     const [startH, startM] = startTime.split(":").map(Number);
     const [endH, endM] = endTime.split(":").map(Number);
@@ -7,26 +21,9 @@ const stopWatch = (startTime: string, endTime: string, displayElement: HTMLEleme
     const end = setDate(endH, endM);
 
     const diff = end.getTime() - start.getTime();
+    setDiff(diff);
 
-    const countDown = () => {
-        let timeLeft = diff;
-
-        const interval = setInterval(() => {
-            if (timeLeft <= 0){
-                clearInterval(interval);
-                displayElement.textContent = '00:00';
-                return;
-            }
-            const formatted = calculate(timeLeft);
-            displayElement.textContent = formatted;
-            timeLeft -= 1000;
-        }, 1000);
-    };
-
-    return {
-        startCountdown: countDown,
-    };
-;
+    return diff;
 }
 
 const setDate = (hour: number, minutes: number) => {
@@ -40,12 +37,17 @@ const setDate = (hour: number, minutes: number) => {
 } 
 
 const calculate = (ms: number): string => {
-    const totalSeconds = Math.floor(ms / 1000);
+
+    const isNegative = ms < 0;
+    const absMs = Math.abs(ms);
+
+    const totalSeconds = Math.floor(absMs / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    const formatted = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    return isNegative ? `-${formatted}` : formatted;
 };
 
 const pad = (num: number): string => (num < 10 ? `0${num}` : `${num}`);
@@ -70,17 +72,38 @@ const currentDate = () => {
     return `${year}-${pad(month)}-${pad(day)}`;
 }
 
+const countDown = (diff: number, displayElement: HTMLElement) => {
+
+    const  halfTime = diff / 2;
+    const  negativeTime = halfTime / 2;
+
+        const interval = setInterval(() => {
+            let action = getSate();
+            if (action === 'is-off'){
+                clearInterval(interval);
+                showNotification('laikas sustabdytas', 'is-warning');
+                setDiff(diff);
+            }
+            if (diff === halfTime){
+                displayElement.className = 'is-size-1 has-text-warning has-text-weight-bold';
+            }
+            else if (diff === negativeTime){
+                displayElement.className = 'is-size-1 has-text-danger has-text-weight-bold';
+            }
+            const formatted = calculate(diff);
+            displayElement.textContent = formatted;
+            diff -= 1000;
+            setDiff(diff);
+        }, 1000);
+    };
+   
 const timeLeftDisplay = (startTime: string, endTime: string) => {
 
-    const [startH, startM] = startTime.split(":").map(Number);
-    const [endH, endM] = endTime.split(":").map(Number);
-    const start = setDate(startH, startM);
-    const end = setDate(endH, endM);
-    const diff = end.getTime() - start.getTime();
+    const diff = stringToDate(startTime, endTime);
     
     const display = calculate(diff);
 
-    return display
+    return display;
 }
 
-export { stopWatch, validateDate, setDate, currentDate, timeLeftDisplay };
+export { stringToDate, validateDate, setDate, currentDate, timeLeftDisplay, countDown };
