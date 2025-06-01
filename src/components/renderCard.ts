@@ -130,7 +130,7 @@ const renderCard = (crew: Crew) => {
 
     const strong2 = document.createElement('strong');
     strong2.textContent = crew.endTime
-    strong1.className = 'has-text-white';
+    strong2.className = 'has-text-white';
     p5.appendChild(strong2);
     endDiv.appendChild(p5);
 
