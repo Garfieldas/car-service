@@ -68,18 +68,7 @@ const renderCard = (crew: Crew) => {
     p2.setAttribute('id', 'timer');
     timeDiv.appendChild(p2);
     const stopWatch = new StopWatch(crew.startTime, crew.endTime, p2);
-    p2.textContent = stopWatch.getTimeLeft();
-
-    //Start button
-    const startBtn = document.createElement('button');
-    startBtn.className = 'button is-primary is-size-3';
-    startBtn.textContent = 'Start';
-    timeDiv.appendChild(startBtn);
-    startBtn.addEventListener('click', () => {
-        stopWatch.start();
-        startBtn.remove();
-        timeDiv.appendChild(stopBtn);
-    })
+    stopWatch.start();
 
     //Stop button
     const stopBtn = document.createElement('button');
@@ -91,6 +80,7 @@ const renderCard = (crew: Crew) => {
         timeDiv.appendChild(resumeBtn);
 
     })
+    timeDiv.appendChild(stopBtn);
 
     //Resume button
     const resumeBtn = document.createElement('button');
