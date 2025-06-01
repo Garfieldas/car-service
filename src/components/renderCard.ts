@@ -1,6 +1,5 @@
 import Crew from "../utils/Crew";
-import { stringToDate, currentDate, timeLeftDisplay,
-countDown, setState, getDiff } from "../features/stopWatch";
+import StopWatch from "../features/stopWatch";
 import removeCrew from "../utils/removeCrew";
 import showNotification from "./showNotification";
 
@@ -67,8 +66,9 @@ const renderCard = (crew: Crew) => {
     const p2 = document.createElement('p');
     p2.className = 'is-size-1 has-text-success has-text-weight-bold';
     p2.setAttribute('id', 'timer');
-    p2.textContent = timeLeftDisplay(crew.startTime, crew.endTime);
     timeDiv.appendChild(p2);
+    const stopWatch = new StopWatch(crew.startTime, crew.endTime, p2);
+    p2.textContent = stopWatch.getTimeLeft();
 
     //Start button
     const startBtn = document.createElement('button');
@@ -76,11 +76,9 @@ const renderCard = (crew: Crew) => {
     startBtn.textContent = 'Start';
     timeDiv.appendChild(startBtn);
     startBtn.addEventListener('click', () => {
-        const stopWatchCall = stringToDate(crew.startTime, crew.endTime);
-        countDown(stopWatchCall, p2);
+        stopWatch.start();
         startBtn.remove();
         timeDiv.appendChild(stopBtn);
-        showNotification('Laiko skaičiavimas prasidėjo', 'is-success');
     })
 
     //Stop button
@@ -88,7 +86,7 @@ const renderCard = (crew: Crew) => {
     stopBtn.className = 'button is-danger is-size-3';
     stopBtn.textContent = 'stop';
     stopBtn.addEventListener('click', () => {
-        setState('is-off');
+        stopWatch.stop();
         stopBtn.remove();
         timeDiv.appendChild(resumeBtn);
 
@@ -99,10 +97,7 @@ const renderCard = (crew: Crew) => {
     resumeBtn.className = 'button is-primary is-size-3';
     resumeBtn.textContent = 'Continue';
     resumeBtn.addEventListener('click', () => {
-        setState('is-on');
-        const diff = getDiff();
-        countDown(diff, p2);
-        showNotification('Laiko skaičiavimas pratęstas', 'is-success');
+        stopWatch.resume();
         resumeBtn.remove();
         timeDiv.appendChild(stopBtn);
     })
@@ -135,7 +130,7 @@ const renderCard = (crew: Crew) => {
 
     const p4 = document.createElement('p');
     p4.className = 'is-size-4';
-    p4.textContent = currentDate();
+    p4.textContent = stopWatch.currentDate();
     endDiv.appendChild(p4);
 
     const p5 = document.createElement('p');

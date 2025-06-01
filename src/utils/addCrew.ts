@@ -1,5 +1,5 @@
 import Crew from "./Crew";
-import { setDate, validateDate } from "../features/stopWatch";
+import { setDate, validateDate } from "./checkTime";
 import { closeModal } from "../components/modal";
 import showNotification from "../components/showNotification";
 
