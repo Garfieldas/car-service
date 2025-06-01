@@ -1,5 +1,5 @@
 import Crew from "../utils/Crew";
-import StopWatch from "../features/stopWatch";
+import StopWatch from "../features/StopWatch";
 import removeCrew from "../utils/removeCrew";
 import showNotification from "./showNotification";
 
@@ -121,6 +121,7 @@ const renderCard = (crew: Crew) => {
 
     const strong1 = document.createElement('strong');
     strong1.textContent = crew.startTime;
+    strong1.className = 'has-text-white';
     p3.appendChild(strong1);
     startDiv.appendChild(p3);
 
@@ -139,6 +140,7 @@ const renderCard = (crew: Crew) => {
 
     const strong2 = document.createElement('strong');
     strong2.textContent = crew.endTime
+    strong1.className = 'has-text-white';
     p5.appendChild(strong2);
     endDiv.appendChild(p5);
 
